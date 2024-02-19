@@ -1,0 +1,74 @@
+﻿@page "{id:int?}"
+@model IndexModel
+
+@{
+    ViewData["Title"] = "Orar";
+}
+
+<h1>Orar</h1>
+
+<p>
+    <a asp-page="Create">Adaugă un program nou</a>
+</p>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Orar[0].Zi)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.OrarData.Orare)
+    {
+        var selectedRow = "";
+        if (item.ID == Model.OrarID)
+        {
+            selectedRow = "table-success";
+        }
+
+        <tr class="@selectedRow">
+            <td>
+                @Html.DisplayFor(modelItem => item.Zi)
+            </td>
+            <td>
+                <a asp-page="./Index" asp-route-id="@item.ID">Select</a> |
+                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+@if (Model.OrarData.Servicii != null)
+{
+    <h3>Serviciile disponibile în ziua selectată</h3>
+    <table class="table">
+
+        @foreach (var item in Model.OrarData.Orare)
+        {
+            var selectedRow = "";
+            if (item.ID == Model.OrarID)
+            {
+                selectedRow = "table-success";
+            }
+
+            <tr class="@selectedRow">
+
+                <td>
+                    @{
+                        foreach (var b in item.Servicii)
+                        {
+                            @b.Titlu
+                            @: @b.Trainer.FullName
+
+                            <br/>
+                        }
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+}

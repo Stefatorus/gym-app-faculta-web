@@ -1,0 +1,55 @@
+﻿@page
+@model IndexModel
+
+@{
+    ViewData["Title"] = "Programări";
+}
+
+<h1>Programări</h1>
+
+<p>
+    <a asp-page="Create">Adaugă o programare nouă</a>
+</p>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Programare[0].Client)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Programare[0].Serviciu)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Programare[0].Serviciu.Trainer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Programare[0].DataProgramare)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.Programare)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Client.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Serviciu.Titlu)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Serviciu.Trainer.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataProgramare)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a> |
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
